@@ -38,7 +38,11 @@ Save and exit `nano` (`Ctrl+X`, `Y`, `Enter`).
 ## Install Varnish and NGINX    
 
     apt-get update
-    apt-get install nginx varnish
+    apt-get install nginx varnish -y
+
+## Install Git (if not installed)
+
+    apt-get install git -y
 
 Clone the repo:
 
@@ -46,20 +50,30 @@ Clone the repo:
 Move all files to its place:
 
     cd ispconfig3-varnish
-    mv etc/* /etc/
-    mv usr/* /usr/
-    mv lib/* /lib/
+    cp -R etc/* /etc/
+    cp -R usr/* /usr/
+    cp -R lib/* /lib/
 
 Reload daemon:
 
     systemctl daemon-reload
+
+Avoid NGINX to listen to port 80 and prepare folders:
+
+    rm /etc/nginx/conf.d/default.conf
+    mkdir /etc/nginx/sites-available
+    mkdir /etc/nginx/sites-enabled
+
+Enable the plugin:
+
+    ln -s /usr/local/ispconfig/server/plugins-available/varnish_plugin.inc.php /usr/local/ispconfig/server/plugins-enabled/varnish_plugin.inc.php
 
 Then, rebuild all vHost **BEFORE RESTARTING SERVICES** (in other case, Apache may not start then you'll not be able to open ISPConfig control panel).
 
     ISPConfig > Tools > Sync Tools > Resync > Check "Websites" > Start
 After that, you can restart all services:
 
-    systemctl restart apache
+    systemctl restart apache2
     systemctl restart varnish
     systemctl restart nginx
 
