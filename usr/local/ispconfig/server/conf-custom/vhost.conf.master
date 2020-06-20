@@ -499,6 +499,11 @@
 			# WEBDAV END
 		</IfModule>
 
+<IfModule mod_remoteip.c>
+   	RemoteIPHeader X-Forwarded-For
+   	RemoteIPInternalProxy 127.0.0.1
+</IfModule>
+
 <tmpl_var name='apache_directives'>
 <tmpl_hook name='apache2_vhost:vhost_footer'>
 </VirtualHost>
