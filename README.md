@@ -47,6 +47,11 @@ Save and exit `nano` (`Ctrl+X`, `Y`, `Enter`).
 Clone the repo:
 
     git clone https://github.com/manoaratefy/ispconfig3-varnish.git
+
+Change Apache2 ports:
+    sed -i 's/Listen 80/Listen 6080/g' /etc/apache2/ports.conf
+    sed -i 's/Listen 443/Listen 6443/g' /etc/apache2/ports.conf
+
 Move all files to its place:
 
     cd ispconfig3-varnish
@@ -94,12 +99,6 @@ Here is a short list of things I think I'm not doing great:
 I'm just thinking that SSL certificates will be `/var/www/yourwebsite.com/ssl/yourwebsite.com.crt` or `/var/www/yourwebsite.com/ssl/yourwebsite.com-le.crt` (Let's Encrypt version). I'm not sure how ISPConfig is really storing SSL certificates.
 ***Concerned file:*** `usr/local/ispconfig/server/plugins-available/varnish_plugin.inc.php`
 
-- **Port changing**
-Currently, the embedded configurations files change the service's port (Apache, NGINX and Varnish). I wish to create a script to adjust ports on existing configurations if available. Also, the used ports may be already used. I suggest to check random ports and use them if free.
-***Concerned files:***
-`etc/apache2/ports.conf`
-`etc/varnish/default.vcl`
-`lib/systemd/system/varnish.service`
 - **Full caching management interface on ISPConfig**
 Admins and users may requires an interface to use Varnish correctly (advanced caching rules, flushing the cache, caching rules template, ...) It is relatively easy to implement it with an external software (means outside ISPConfig control panel) as the proposed Varnish configuration doesn't depend on any ISPConfig functionnality. Theorically, we can use any Varnish Control Panel without interference. But it would be great if someones found a way to integrate in under the ISPConfig interface itself.
 
