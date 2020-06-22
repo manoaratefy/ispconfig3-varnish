@@ -102,10 +102,6 @@ I'm not a ISPConfig developer. I don't know if the way I do thing is good enough
 
 Here is a short list of things I think I'm not doing great:
 
-- **The SSL certificate file**
-I'm just thinking that SSL certificates will be `/var/www/yourwebsite.com/ssl/yourwebsite.com.crt` or `/var/www/yourwebsite.com/ssl/yourwebsite.com-le.crt` (Let's Encrypt version). I'm not sure how ISPConfig is really storing SSL certificates.
-***Concerned file:*** `usr/local/ispconfig/server/plugins-available/varnish_plugin.inc.php`
-
 - **Full caching management interface on ISPConfig**
 Admins and users may requires an interface to use Varnish correctly (advanced caching rules, flushing the cache, caching rules template, ...) It is relatively easy to implement it with an external software (means outside ISPConfig control panel) as the proposed Varnish configuration doesn't depend on any ISPConfig functionnality. Theorically, we can use any Varnish Control Panel without interference. But it would be great if someones found a way to integrate in under the ISPConfig interface itself.
 
