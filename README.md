@@ -49,6 +49,7 @@ Clone the repo:
     git clone https://github.com/manoaratefy/ispconfig3-varnish.git
 
 Change Apache2 ports:
+
     sed -i 's/Listen 80/Listen 6080/g' /etc/apache2/ports.conf
     sed -i 's/Listen 443/Listen 6443/g' /etc/apache2/ports.conf
 
