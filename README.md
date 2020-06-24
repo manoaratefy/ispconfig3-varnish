@@ -14,8 +14,9 @@ I've done test with the following configuration:
 
 This should work fine with Ubuntu, and may requires small adjustments to work well on CentOS & RHEL-based distributions.
 # Installation steps:
-Install some required software for Varnish and NGINX repos:
-`apt-get install debian-archive-keyring curl gnupg apt-transport-https gnupg2 ca-certificates lsb-release`
+Install dependancies:
+
+    apt-get install debian-archive-keyring curl gnupg apt-transport-https gnupg2 ca-certificates lsb-release git -y
 
 ## Install Varnish repo
 
@@ -39,10 +40,6 @@ Save and exit `nano` (`Ctrl+X`, `Y`, `Enter`).
 
     apt-get update
     apt-get install nginx varnish -y
-
-## Install Git (if not installed)
-
-    apt-get install git -y
 
 Clone the repo:
 
