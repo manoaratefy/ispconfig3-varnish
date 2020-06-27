@@ -145,7 +145,7 @@ class varnish_plugin {
     		$app->load('tpl');
 
     		$tpl = new tpl();
-    		$tpl->newTemplate('varnish_plugin.vhost.conf.master');
+    		$tpl->newTemplate('varnish_plugin_nginx.vhost.conf.master');
 
             $tpl->setVar('domain', $data['new']['domain']);
 
