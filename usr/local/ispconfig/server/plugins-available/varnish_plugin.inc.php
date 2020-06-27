@@ -188,7 +188,12 @@ class varnish_plugin {
 			$errordocs = !$data['new']['errordocs'];
             $tpl->setVar('errordocs', $errordocs);
 
-	        // Check if a SSL cert exists
+			// Check if a SSL cert exists
+			if($data['new']['ssl_domain'] == ''){
+				// Asume that ssl_domain = domain
+				$data['new']['ssl_domain'] = $data['new']['domain'];
+			}
+
             if($data['new']['ssl_letsencrypt'] == 'y'){
                 // It is a Let's Encrypt SSL certificate
                 $key_file = $data['new']['document_root'].'/ssl/'.$data['new']['ssl_domain'].'-le.key';
