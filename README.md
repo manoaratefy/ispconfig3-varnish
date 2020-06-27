@@ -20,17 +20,7 @@ Install dependancies:
 
 ## Install Varnish repo
 
-    curl -L https://packagecloud.io/varnishcache/varnish60lts/gpgkey | apt-key add -
-
-Create a text file called `/etc/apt/sources.list.d/varnishcache_varnish60lts.list`:
-
-    nano /etc/apt/sources.list.d/varnishcache_varnish60lts.list
-
-Put this on:
-
-    deb https://packagecloud.io/varnishcache/varnish60lts/debian/ stretch main
-    deb-src https://packagecloud.io/varnishcache/varnish60lts/debian/ stretch main
-Save and exit `nano` (`Ctrl+X`, `Y`, `Enter`).
+    curl -s https://packagecloud.io/install/repositories/varnishcache/varnish64/script.deb.sh | sudo bash
 ## Install NGINX repo
 
     echo "deb http://nginx.org/packages/debian `lsb_release -cs` nginx" \
@@ -50,16 +40,17 @@ Change Apache2 ports:
     sed -i 's/Listen 80/Listen 6080/g' /etc/apache2/ports.conf
     sed -i 's/Listen 443/Listen 6443/g' /etc/apache2/ports.conf
 
+Change Varnish ports:
+
+    cp /lib/systemd/system/varnish.service /tmp/varnish.service.old
+    perl -pe 's/(\s*)ExecStart(\s*)=(\s*)\/usr\/sbin\/varnishd(.*)/ExecStart=\/usr\/sbin\/varnishd -a :80 -a :7443 -f \/etc\/varnish\/default.vcl -s malloc,256m/g' /tmp/varnish.service.old | tee /lib/systemd/system/varnish.service > /dev/null
+    systemctl daemon-reload
+
 Move all files to its place:
 
     cd ispconfig3-varnish
     cp -R etc/* /etc/
     cp -R usr/* /usr/
-    cp -R lib/* /lib/
-
-Reload daemon:
-
-    systemctl daemon-reload
 
 Avoid NGINX to listen to port 80 and prepare folders:
 
